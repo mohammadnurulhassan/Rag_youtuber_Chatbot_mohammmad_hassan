@@ -1,0 +1,16 @@
+[project]
+name = "rag-youtuber-chatbot-mohammmad-hassan"
+version = "0.1.0"
+description = "RAG chatbot for Kokchun-style data engineering YouTube lectures"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "streamlit",
+    "lancedb",
+    "google-generativeai",
+    "pydantic-ai",
+    "python-dotenv",
+    "requests",
+]
