@@ -1,7 +1,6 @@
 # api.py
 from fastapi import FastAPI
 from backend.data_models import Prompt, RagResponse
-from backend.rag import rag_agent
 
 app = FastAPI(title="Youtuber RAG API")
 
@@ -14,13 +13,12 @@ async def test():
 @app.post("/rag/query", response_model=RagResponse)
 async def query_documentation(query: Prompt) -> RagResponse:
     """
-    Main RAG endpoint:
-      - Takes a user prompt (query.prompt)
-      - Uses our PydanticAI rag_agent to answer
-      - Returns RagResponse (answer + filename + filepath)
+    TEMPORARY SIMPLE IMPLEMENTATION:
+    Just echo back the prompt and a fake filename.
+    This guarantees that the response is valid JSON and matches RagResponse.
     """
-    # Depending on pydantic_ai version, use run() or arun()
-    # Here we assume async arun is available:
-    result = await rag_agent.arun(query.prompt)
-    # result.data (or result.output) should be the RagResponse
-    return result.data
+    return RagResponse(
+        filename="dummy_transcript",
+        filepath="/path/to/dummy_transcript.md",
+        answer=f"(TEMP) Du frågade: {query.prompt}",
+    )
