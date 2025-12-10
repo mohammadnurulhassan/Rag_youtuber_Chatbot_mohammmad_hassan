@@ -13,4 +13,5 @@ dependencies = [
     "pydantic-ai",
     "python-dotenv",
     "requests",
+    "pandas>=2.3.3",
 ]
