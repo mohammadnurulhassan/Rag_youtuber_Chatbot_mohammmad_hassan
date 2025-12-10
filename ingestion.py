@@ -1,11 +1,11 @@
-# ingestion.py
+
 from pathlib import Path
 import time
 
 import lancedb
 
 from backend.constants import VECTOR_DATABASE_PATH, DATA_PATH
-from backend.data_models import Article  # uses gemini-embedding-001
+from backend.data_models import Article 
 
 
 def setup_vector_db(path: Path | str):
@@ -14,7 +14,8 @@ def setup_vector_db(path: Path | str):
 
     db = lancedb.connect(str(path))
 
-    # 💣 IMPORTANT: if 'articles' exists with old schema (768-dim), drop it
+
+
     if "articles" in db.table_names():
         print("Dropping old 'articles' table to reset schema...")
         db.drop_table("articles")
@@ -26,7 +27,7 @@ def setup_vector_db(path: Path | str):
 
 
 def ingest_docs_to_vector_db(table):
-    TEXT_EXTENSIONS = {".md", ".txt"}
+    TEXT_EXTENSIONS = {".md"}
 
     for file in DATA_PATH.iterdir():
         if file.suffix.lower() not in TEXT_EXTENSIONS:
