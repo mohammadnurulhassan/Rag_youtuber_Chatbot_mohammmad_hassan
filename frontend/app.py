@@ -59,7 +59,7 @@ def render_message(role: str, text: str):
                 margin-bottom:0.5rem;
                 border:1px solid #DDDEE5;
             ">
-                <strong>DataBot:</strong><br>{text}
+                <strong>Data_Bot:</strong><br>{text}
             </div>
             """,
             unsafe_allow_html=True,
@@ -127,6 +127,7 @@ def layout():
     
         st.session_state["history"] = []
 
+
     # ---------- INPUT AREA ----------
     with st.container():
         st.markdown("### 💬 Ask your question")
@@ -141,14 +142,14 @@ def layout():
 
     # ---------- HANDLE NEW MESSAGE ----------
     if send_clicked and user_input.strip():
-        # 1) Add user message to history
+        
         st.session_state["history"].append(("user", user_input))
 
-        # 2) Call backend safely
+        
         try:
             data = call_backend(user_input)
         except Exception as e:
-            # Show error as a bot message (more friendly than a crash)
+            
             st.session_state["history"].append(
                 ("bot", f"⚠️ An error occurred when calling the backend:\n\n`{e}`")
             )
@@ -165,25 +166,25 @@ def layout():
 
             st.session_state["history"].append(("bot", bot_text))
 
+
     # ---------- CHAT HISTORY ----------
     st.markdown("## 🧠 Conversation")
     for role, text in st.session_state["history"]:
         render_message(role, text)
 
-        # If this is a bot message, try to detect and show related image
-        if role == "bot":
-            # very small heuristic: try to extract the source filename from the text
-            # The text format is: answer + "\n\n_Source: **filename**_\n\n`path`"
+        
+        if role == "Data_bot":
+        
             if "_Source:" in text:
-                # crude parsing, but enough:
+            
                 try:
-                    # get content between ** ... **
+                
                     start = text.index("**") + 2
                     end = text.index("**", start)
                     src_filename = text[start:end]
                     try_show_related_image(src_filename)
                 except Exception:
-                    # if parsing fails, just skip
+                
                     pass
 
 
