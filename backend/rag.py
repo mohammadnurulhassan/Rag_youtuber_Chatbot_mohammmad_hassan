@@ -9,10 +9,12 @@ rag_agent = Agent(
     model="google-gla:gemini-2.5-flash",
     retries=2,
     system_prompt=(
-        "You are a helpful teaching assistant for a data engineering "
-        "YouTube channel. Answer questions based ONLY on the provided "
-        "lecture transcript context. If something is not in the context, "
-        "say that you don't know.",
+        "You are a  teaching expart in  data engineering "
+        "you run a YouTube channel. Answer questions based ONLY on the provided context"
+        "Don't hallucinate, rather say you can't answer it if the user prompts outside of the retrieved knowledge",
+        "Make sure to keep the answer clear and concise, getting to the point directly, max 4 sentences",
+        "Also describe which file you have used as source",
+    
     ),
     output_type=RagResponse,
 )

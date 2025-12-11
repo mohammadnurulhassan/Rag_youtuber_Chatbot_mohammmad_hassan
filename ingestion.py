@@ -38,7 +38,7 @@ def ingest_docs_to_vector_db(table):
 
         doc_id = file.stem
 
-        # not needed anymore since we dropped table, but safe to keep:
+        
         table.delete(f"doc_id = '{doc_id}'")
 
         table.add(
@@ -54,7 +54,7 @@ def ingest_docs_to_vector_db(table):
 
         print("Ingested:", file.name)
         print(table.to_pandas()[["doc_id", "filename"]])
-        time.sleep(0.1)
+        time.sleep(30)
 
 
 if __name__ == "__main__":

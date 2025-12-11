@@ -1,4 +1,4 @@
-# frontend/app.py
+
 import streamlit as st
 import requests
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 API_URL = "http://127.0.0.1:8000/rag/query"
 
 ASSETS_PATH = Path(__file__).resolve().parents[1] / "assets"
-AVATAR_PATH = ASSETS_PATH / "data_engineer_avatar.png"
+AVATAR_PATH = ASSETS_PATH / "data_engineer.png"
 
 
 def layout():

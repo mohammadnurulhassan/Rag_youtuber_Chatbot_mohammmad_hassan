@@ -5,14 +5,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Gemini embeddings via LanceDB
-embedding_model = (
+
+embedding_model =(
     get_registry()
     .get("gemini-text")
     .create(name="gemini-embedding-001")
 )
 
-EMBEDDING_DIM = 3072  # should be 3072, but this is safer
+EMBEDDING_DIM = 3072  
 
 class Article(LanceModel):
     """
@@ -21,7 +21,7 @@ class Article(LanceModel):
     doc_id: str
     filepath: str
     filename: str = Field(
-        description="The stem of the file, without extension (e.g. 'Modern data stack - dockerize your data pipeline')"
+        description="The stem of the file, without extension (e.g. 'Modern data stack-dockerize your data pipeline')"
     )
     content: str = embedding_model.SourceField()
     embedding: Vector(EMBEDDING_DIM) = embedding_model.VectorField()
