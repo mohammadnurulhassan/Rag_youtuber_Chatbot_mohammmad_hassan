@@ -1,84 +1,190 @@
-
 import streamlit as st
 import requests
 from pathlib import Path
 
+
 API_URL = "http://127.0.0.1:8000/rag/query"
 
-ASSETS_PATH = Path(__file__).resolve().parents[1] / "assets"
+BASE_DIR = Path(__file__).resolve().parents[1]
+ASSETS_PATH = BASE_DIR / "assets"
+
 AVATAR_PATH = ASSETS_PATH / "data_engineer.png"
 
 
-def layout():
-    st.set_page_config(page_title="Youtuber RAG Chatbot", layout="wide")
 
-    # Header with avatar
-    col1, col2 = st.columns([1, 3])
-    with col1:
-        if AVATAR_PATH.exists():
-            st.image(AVATAR_PATH, caption="Data Engineer", use_column_width=True)
-    with col2:
-        st.title("🎓 Youtuber RAG Chatbot")
-        st.markdown(
-            "Ställ frågor om föreläsningar från min data engineering YouTube-kanal.\n\n"
-            "Botten svarar baserat på transkriptionerna i kunskapsbasen."
+def call_backend(prompt: str) -> dict:
+    """Call the FastAPI RAG backend and return JSON or raise."""
+    response = requests.post(API_URL, json={"prompt": prompt}, timeout=30)
+
+    if response.status_code != 200:
+    
+        raise RuntimeError(
+            f"Backend returned {response.status_code}.\n\nBody:\n{response.text}"
         )
+
+    try:
+        data = response.json()
+    except Exception as e:  
+        raise RuntimeError(
+            f"Could not parse backend response as JSON.\nError: {e}\n\nRaw:\n{response.text}"
+        )
+
+    return data
+
+
+def render_message(role: str, text: str):
+    """Simple chat-style rendering."""
+    if role == "user":
+        st.markdown(
+            f"""
+            <div style="
+                background-color:#E8F4FF;
+                padding:0.6rem 0.8rem;
+                border-radius:0.6rem;
+                margin-bottom:0.5rem;
+                border:1px solid #BBD9FF;
+            ">
+                <strong>You:</strong><br>{text}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            f"""
+            <div style="
+                background-color:#F7F7F9;
+                padding:0.6rem 0.8rem;
+                border-radius:0.6rem;
+                margin-bottom:0.5rem;
+                border:1px solid #DDDEE5;
+            ">
+                <strong>DataBot:</strong><br>{text}
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
+def try_show_related_image(source_filename: str):
+    
+    
+    if not source_filename:
+        return
+
+    for ext in [".png"]:
+        candidate = ASSETS_PATH / f"{source_filename}{ext}"
+        if candidate.exists():
+            st.image(candidate, caption=f"Related: {source_filename}", use_container_width=True)
+            break
+
+
+# ==========================
+# Main layout
+# ==========================
+def layout():
+    st.set_page_config(page_title=" RAG_Chatbot", layout="wide")
+
+    # ---------- HEADER ----------
+    header_col1, header_col2 = st.columns([1, 2])
+
+    with header_col1:
+        if AVATAR_PATH.exists():
+            st.image(
+                AVATAR_PATH,
+                caption="Your Data Engineer RAG Assistant",
+                use_container_width=True,
+            )
+
+    with header_col2:
+        st.title("🎓  RAG CHATBOT")
+        st.markdown(
+            """
+                Ask anything about **Data engineering**, the **Modern data stack**, **Snowflake**, **DBT**,  
+                data pipelines, and related topics.  
+                This chatbot generates answers using the transcripts  and notes stored in your knowledge base.
+            """
+
+        )
+      
 
     st.markdown("---")
 
+    # ---------- SIDEBAR ----------
+    with st.sidebar:
+        st.subheader("ℹ️ About this chatbot")
+        st.write(
+            """
+            • Backend: **FastAPI + PydanticAI + LanceDB**  
+            • Frontend: **Streamlit**  
+            • Knowledge base: Pre-loaded `.md` files (YouTube lecture notes).
+            """
+        )
+        st.write("We can update the knowledge base by adding more `.md` files.")
+
+    # ---------- SESSION STATE ----------
     if "history" not in st.session_state:
+    
         st.session_state["history"] = []
 
-    user_input = st.text_input("Skriv din fråga här:")
-
-    if st.button("Skicka") and user_input.strip():
-        # spara användarens fråga
-        st.session_state["history"].append(("user", user_input))
-
-        # 🛡️ Skydd: hantera koppling till backend + JSON-fel
-        try:
-            response = requests.post(API_URL, json={"prompt": user_input}, timeout=20)
-        except requests.exceptions.RequestException as e:
-            st.error(f"Kunde inte nå backend API:t ({API_URL}).\n\nFel: {e}")
-            return
-
-        # Kontrollera statuskod
-        if response.status_code != 200:
-            st.error(
-                f"Backend svarade med statuskod {response.status_code}.\n\n"
-                f"Body:\n\n{response.text}"
-            )
-            return
-
-        # Försök tolka JSON – fånga JSONDecodeError
-        try:
-            data = response.json()
-        except Exception as e:
-            st.error(
-                "Kunde inte tolka backend-svaret som JSON.\n\n"
-                f"Fel: {e}\n\n"
-                f"Raw response:\n\n{response.text}"
-            )
-            return
-
-        # Nu ska data ha nycklarna: answer, filename, filepath
-        answer = data.get("answer", "(ingen answer-nyckel i JSON)")
-        source_file = data.get("filename", "")
-        source_path = data.get("filepath", "")
-
-        st.session_state["history"].append(
-            (
-                "bot",
-                f"{answer}\n\n_Källa: {source_file}_\n\n`{source_path}`",
-            )
+    # ---------- INPUT AREA ----------
+    with st.container():
+        st.markdown("### 💬 Ask your question")
+        user_input = st.text_input(
+            "Type your question here:",
+            placeholder="e.g. What is dbt and why do we use it in the modern data stack?",
         )
 
-    st.markdown("## Konversation")
-    for role, text in st.session_state["history"]:
-        if role == "user":
-            st.markdown(f"**Du:** {text}")
+        send_col1, send_col2 = st.columns([1, 4])
+        with send_col1:
+            send_clicked = st.button("Send", type="primary")
+
+    # ---------- HANDLE NEW MESSAGE ----------
+    if send_clicked and user_input.strip():
+        # 1) Add user message to history
+        st.session_state["history"].append(("user", user_input))
+
+        # 2) Call backend safely
+        try:
+            data = call_backend(user_input)
+        except Exception as e:
+            # Show error as a bot message (more friendly than a crash)
+            st.session_state["history"].append(
+                ("bot", f"⚠️ An error occurred when calling the backend:\n\n`{e}`")
+            )
         else:
-            st.markdown(f"**Bot:** {text}")
+            answer = data.get("answer", "(no 'answer' key in JSON)")
+            source_file = data.get("filename", "")
+            source_path = data.get("filepath", "")
+
+            bot_text = (
+                f"{answer}\n\n"
+                f"_Source: **{source_file}**_\n\n"
+                f"`{source_path}`"
+            )
+
+            st.session_state["history"].append(("bot", bot_text))
+
+    # ---------- CHAT HISTORY ----------
+    st.markdown("## 🧠 Conversation")
+    for role, text in st.session_state["history"]:
+        render_message(role, text)
+
+        # If this is a bot message, try to detect and show related image
+        if role == "bot":
+            # very small heuristic: try to extract the source filename from the text
+            # The text format is: answer + "\n\n_Source: **filename**_\n\n`path`"
+            if "_Source:" in text:
+                # crude parsing, but enough:
+                try:
+                    # get content between ** ... **
+                    start = text.index("**") + 2
+                    end = text.index("**", start)
+                    src_filename = text[start:end]
+                    try_show_related_image(src_filename)
+                except Exception:
+                    # if parsing fails, just skip
+                    pass
 
 
 if __name__ == "__main__":
