@@ -41,8 +41,6 @@ Streamlit Frontend
 ----
 ### ▶️ How to Run the Project Locally
 
-#### 1️⃣ Create and activate virtual environment & Install dependencies
-
 ```
 # 1. Create environment
 uv venv
