@@ -61,7 +61,7 @@ uv run streamlit run frontend/app.py
 ```
 
 ----
-### Azure Deployment
+### ☁️ Azure Deployment
 
 - Backend connected to Azure Function App
 
@@ -83,6 +83,22 @@ uv run streamlit run frontend/app.py
 
 
 ----
+
+### ✅ Learning Outcomes
+
+- Built a full RAG pipeline from scratch
+
+- Used vector databases in practice
+
+- Integrated LLMs with structured retrieval
+
+- Designed a clean frontend for AI applications
+  
+----
+## 👤 Author
+
+**Mohammad Nurul Hassan**
+Data Engineering Student
 
 
 
