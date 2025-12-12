@@ -1,5 +1,4 @@
-# Rag_youtuber_Chatbot_mohammmad_hassan
- Create a RAG_chatbot on real world scenario. 
+
 # Youtuber RAG Chatbot – Data Engineering Knowledge Assistant
 
 This project is a Retrieval-Augmented Generation (RAG) chatbot built for data engineering learning content.
@@ -99,6 +98,11 @@ Frontend will open at:
 
 #### RAG Answer with Source
 ![Conversation](/assets/conversation.png)
+
+### Swagger UI
+![FAST API](/assets/swageer_ui.png)
+
+----
 
 
 
