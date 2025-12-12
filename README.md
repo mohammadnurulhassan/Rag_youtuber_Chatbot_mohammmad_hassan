@@ -2,27 +2,24 @@
 # Youtuber RAG Chatbot – Data Engineering Knowledge Assistant
 
 This project is a Retrieval-Augmented Generation (RAG) chatbot built for data engineering learning content.
-The chatbot answers questions based on  YouTube lecture transcriptS and notes, stored as Markdown files.
+The chatbot answers questions based on  YouTube lecture transcripts and notes, stored as Markdown files.
 It combines vector search with LLM reasoning and is deployed with Azure Function App support.
 
 ----
 
 ### 🚀 Project Highlights
 
-- 📚 Knowledge base built from Markdown (.md) lecture notes
+- Ingests *Markdown transcripts* from YouTube lectures
 
-- 🔍 Vector search using LanceDB
+- Generates *embeddings* and stores them in *LanceDB*
 
-- 🧠 RAG pipeline using PydanticAI + Gemini
+- Retrieves relevant content using vector similarity
 
-- ⚡ FastAPI backend
+- Generates grounded answers using LLM + retrieved context
 
- - 💬 Streamlit frontend with chat UI
+- Provides a Streamlit chat UI
 
-- ☁️ Connected to Azure Function App
-
-- 🔐 Robust error handling for LLM/API failures
-
+Exposes a FastAPI backend, deployable via Azure Function App
 -----
 
 ### 📂 Project Structure
