@@ -40,6 +40,7 @@ Rag_youtuber_Chatbot_mohammmad_hassan/
 ├── assets/             # Images & avatars
 ├── ingestion.py
 ├── api.py
+├──function_app.py
 ├── README.md
 └── requirements.txt
 ```
