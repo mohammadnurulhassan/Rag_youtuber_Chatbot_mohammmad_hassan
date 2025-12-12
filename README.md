@@ -94,8 +94,13 @@ Frontend will open at:
 - Same FastAPI logic, Azure-hosted endpoint
 ---
 ### 🖼️ Screenshots
-Rag_bot UI
+#### Rag_bot UI
 ![Rag UI](/assets/PIC6.png)
+
+#### RAG Answer with Source
+![Conversation](/assets/pic5.png)
+
+
 
 
 
