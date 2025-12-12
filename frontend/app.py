@@ -152,12 +152,12 @@ def layout():
 
             bot_text = (
                 f"{answer}\n\n"
-                f"_Source: **{source_file}**"
-                f"`{source_path}`"
-
+                f" Source: **{source_file}**"
+                f"`{source_path}`",
+                st.image(ASSETS_PATH/f"{source_file}.png", caption="Related image", use_container_width=True)
             )
 
-            st.image(ASSETS_PATH/f"{source_file}.png", caption="Related image", use_container_width=True)
+            
 
             st.session_state["history"].append(("bot", bot_text))
 
@@ -168,20 +168,23 @@ def layout():
         render_message(role, text)
 
         
-        if role == "Data_bot":
+        if role == "Data_bot" and "Source:" in text:
         
-            if "_Source:" in text:
+            source_file = None
             
-                try:
+            try:
                 
                     start = text.index("**") + 2
                     end = text.index("**", start)
-                    src_filename = text[start:end]
+                    src_filename = text[start:end].strip()
                     
-                except Exception:
+            except Exception:
+                source_file = None
+            if source_file:
+                  img_path = ASSETS_PATH / f"{source_file}.png"
+                  if img_path.exists():
+                    st.image(img_path, caption="Related image", use_container_width=True)  
                 
-                    pass
-
 
 if __name__ == "__main__":
     layout()
