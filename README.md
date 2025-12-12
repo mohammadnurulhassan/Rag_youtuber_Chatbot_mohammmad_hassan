@@ -48,13 +48,15 @@ Rag_youtuber_Chatbot_mohammmad_hassan/
 ### ▶️ How to Run the Project Locally
 
 #### 1️⃣ Create and activate virtual environment & Install dependencies
-```python -m venv .venv
+```
+python -m venv .venv
 source .venv/Scripts/activate   # Windows Git Bash
 pip install -r requirements.txt
 ```
 #### 2️⃣ Set environment variables & Ingest Markdwon files into vector database
-```GOOGLE_API_KEY=api_key_here
-  python ingestion.py
+```
+GOOGLE_API_KEY=api_key_here
+python ingestion.py
 ```
 
  This will:
@@ -63,21 +65,23 @@ pip install -r requirements.txt
 - Store them in LanceDB
 
 #### 3️⃣ Start the backend (FastAPI)
-```uv run uvicorn api:app --reload
+```
+uv run uvicorn api:app --reload
 ```
 
 Backend will be available at:
-
 - http://127.0.0.1:8000
-
 - Swagger UI: http://127.0.0.1:8000/docs
 
-  #### 4️⃣ Start the frontend (Streamlit)
-  ```uv run streamlit run frontend/app.py
+#### 4️⃣ Start the frontend (Streamlit)
+
+```
+  uv run streamlit run frontend/app.py
 ```
 Frontend will open at:
 
 - http://localhost:8501
+
 ----
 
 
