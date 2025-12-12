@@ -1,7 +1,7 @@
 # Youtuber RAG Chatbot – Data Engineering Knowledge Assistant
 
 This project is a Retrieval-Augmented Generation (RAG) chatbot built for data engineering learning content.
-The chatbot answers questions based on my own YouTube lecture transcriptions and notes, stored as Markdown files.
+The chatbot answers questions based on  YouTube lecture transcriptS and notes, stored as Markdown files.
 It combines vector search with LLM reasoning and is deployed with Azure Function App support.
 
 ----
@@ -62,7 +62,23 @@ pip install -r requirements.txt
 - Create embeddings
 - Store them in LanceDB
 
+#### 3️⃣ Start the backend (FastAPI)
+```uv run uvicorn api:app --reload
+```
 
+Backend will be available at:
+
+- http://127.0.0.1:8000
+
+- Swagger UI: http://127.0.0.1:8000/docs
+
+  #### 4️⃣ Start the frontend (Streamlit)
+  ```uv run streamlit run frontend/app.py
+```
+Frontend will open at:
+
+- http://localhost:8501
+----
 
 
 
