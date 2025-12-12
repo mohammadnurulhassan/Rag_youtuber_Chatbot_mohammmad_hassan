@@ -44,3 +44,15 @@ Rag_youtuber_Chatbot_mohammmad_hassan/
 ├── README.md
 └── requirements.txt
 ```
+----
+### ▶️ How to Run the Project Locally
+
+#### 1️⃣ Create and activate virtual environment & Install dependencies
+```python -m venv .venv
+source .venv/Scripts/activate   # Windows Git Bash
+pip install -r requirements.txt
+```
+
+
+
+
