@@ -95,10 +95,10 @@ Frontend will open at:
 ---
 ### 🖼️ Screenshots
 #### Rag_bot UI
-![Rag UI](/assets/PIC6.png)
+![Rag UI](/assets/rag_UI.png)
 
 #### RAG Answer with Source
-![Conversation](/assets/pic 5.png)
+![Conversation](/assets/conversation.png)
 
 
 
