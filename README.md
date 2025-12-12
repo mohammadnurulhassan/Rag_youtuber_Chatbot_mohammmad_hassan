@@ -83,6 +83,17 @@ Frontend will open at:
 - http://localhost:8501
 
 ----
+### Azure Deployment
+
+- Backend connected to Azure Function App
+
+- Enables cloud execution of the RAG API
+
+- Same FastAPI logic, Azure-hosted endpoint
+---
+### 🖼️ Screenshots
+Rag_bot UI
+![Rag UI](/assets/PIC6.png)
 
 
 
