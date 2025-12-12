@@ -1,9 +1,12 @@
 import streamlit as st
 import requests
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
-API_URL = "http://127.0.0.1:8000/rag/query"
+API_URL = f"https://youtuber-ragbot.azurewebsites.net//rag/query?code={os.getenv('FUNCTION_APP_API')}"
 
 BASE_DIR = Path(__file__).absolute().parents[1]
 ASSETS_PATH = BASE_DIR / "assets"
