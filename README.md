@@ -9,76 +9,58 @@ It combines vector search with LLM reasoning and is deployed with Azure Function
 
 ### 🚀 Project Highlights
 
-- Ingests *Markdown transcripts* from YouTube lectures
+- Ingests **Markdown transcripts** from YouTube lectures
 
-- Generates *embeddings* and stores them in *LanceDB*
+- Generates **embeddings** and stores them in **LanceDB**
 
-- Retrieves relevant content using vector similarity
+- Retrieves relevant content using **vector similarity**
 
-- Generates grounded answers using LLM + retrieved context
+- Generates grounded answers using **LLM + retrieved context**
 
-- Provides a Streamlit chat UI
+- Provides a **Streamlit chat UI**
 
-Exposes a FastAPI backend, deployable via Azure Function App
+- Exposes a **FastAPI backend**, deployable via **Azure Function App**
+
 -----
 
-### 📂 Project Structure
+### 🧱 Architecture
 ```
-Rag_youtuber_Chatbot_mohammmad_hassan/
-│
-├── backend/
-│   ├── rag.py
-│   ├── data_models.py
-│   └── constants.py
-│
-├── frontend/
-│   └── app.py
-│
-├── data/               # Markdown knowledge base
-├── assets/             # Images & avatars
-├── ingestion.py
-├── api.py
-├──function_app.py
-├── README.md
-└── requirements.txt
+Markdown files (.md)
+        ↓
+Ingestion & Embeddings
+        ↓
+     LanceDB
+        ↓
+FastAPI (RAG logic)
+        ↓
+Streamlit Frontend
+        ↓
+     End User
+
 ```
 ----
 ### ▶️ How to Run the Project Locally
 
 #### 1️⃣ Create and activate virtual environment & Install dependencies
+
 ```
-python -m venv .venv
-source .venv/Scripts/activate   # Windows Git Bash
-pip install -r requirements.txt
-```
-#### 2️⃣ Set environment variables & Ingest Markdwon files into vector database
-```
-GOOGLE_API_KEY=api_key_here
+# 1. Create environment
+uv venv
+source .venv/Scripts/activate
+
+# 2. Install dependencies
+uv init
+
+# 3. Run ingestion
 python ingestion.py
-```
 
- This will:
-- Read .md files from the data/ folder
-- Create embeddings
-- Store them in LanceDB
-
-#### 3️⃣ Start the backend (FastAPI)
-```
+# 4. Start backend
 uv run uvicorn api:app --reload
-```
 
-Backend will be available at:
-- http://127.0.0.1:8000
-- Swagger UI: http://127.0.0.1:8000/docs
-
-#### 4️⃣ Start the frontend (Streamlit)
+# 5. Start frontend
+uv run streamlit run frontend/app.py
 
 ```
-  uv run streamlit run frontend/app.py
-```
-Frontend will open at:
-
-- http://localhost:8501
 
 ----
 ### Azure Deployment
