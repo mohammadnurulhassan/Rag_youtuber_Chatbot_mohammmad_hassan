@@ -98,7 +98,7 @@ Frontend will open at:
 ![Rag UI](/assets/PIC6.png)
 
 #### RAG Answer with Source
-![Conversation](/assets/pic5.png)
+![Conversation](/assets/pic 5.png)
 
 
 
