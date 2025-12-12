@@ -100,7 +100,7 @@ Frontend will open at:
 ![Conversation](/assets/conversation.png)
 
 ### Swagger UI
-![FAST API](/assets/swageer_ui.png)
+![FastAPI](/assets/swagger_ui.png)
 
 ----
 
