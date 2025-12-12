@@ -52,6 +52,16 @@ Rag_youtuber_Chatbot_mohammmad_hassan/
 source .venv/Scripts/activate   # Windows Git Bash
 pip install -r requirements.txt
 ```
+#### 2️⃣ Set environment variables & Ingest Markdwon files into vector database
+```GOOGLE_API_KEY=api_key_here
+  python ingestion.py
+```
+
+ This will:
+- Read .md files from the data/ folder
+- Create embeddings
+- Store them in LanceDB
+
 
 
 
