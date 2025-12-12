@@ -93,7 +93,7 @@ Frontend will open at:
 ---
 ### 🖼️ Screenshots
 Rag_bot UI
-![Rag UI](/root/assets/PIC6.png)
+![Rag UI](/assets/PIC6.png)
 
 
 
