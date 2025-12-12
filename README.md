@@ -93,14 +93,17 @@ Frontend will open at:
 - Same FastAPI logic, Azure-hosted endpoint
 ---
 ### 🖼️ Screenshots
+
+### Swagger UI
+![FastAPI](/assets/swagger_ui.png)
+
 #### Rag_bot UI
 ![Rag UI](/assets/rag_UI.png)
 
 #### RAG Answer with Source
 ![Conversation](/assets/conversation.png)
 
-### Swagger UI
-![FastAPI](/assets/swagger_ui.png)
+
 
 ----
 
