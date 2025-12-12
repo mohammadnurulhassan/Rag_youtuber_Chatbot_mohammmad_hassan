@@ -66,6 +66,17 @@ def render_message(role: str, text: str):
         )
 
 
+def try_show_related_image(source_filename:str):
+    
+    
+    if not source_filename:
+        return
+
+    for ext in [".png"]:
+        candidate = ASSETS_PATH / f"{source_filename}{ext}"
+        if candidate.exists():
+            st.image(candidate, caption=f"Related: {source_filename}", use_container_width=True)
+            break
 
 
 # =================================================================
@@ -149,12 +160,9 @@ def layout():
 
             bot_text = (
                 f"{answer}\n\n"
-                f"_Source: **{source_file}**"
+                f"_Source: **{source_file}**_\n\n"
                 f"`{source_path}`"
-
             )
-
-            st.image(ASSETS_PATH/f"{source_file}.png", caption="Related image", use_container_width=True)
 
             st.session_state["history"].append(("bot", bot_text))
 
@@ -174,7 +182,7 @@ def layout():
                     start = text.index("**") + 2
                     end = text.index("**", start)
                     src_filename = text[start:end]
-                    
+                    try_show_related_image(src_filename)
                 except Exception:
                 
                     pass

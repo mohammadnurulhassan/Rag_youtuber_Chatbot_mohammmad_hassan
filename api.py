@@ -10,9 +10,9 @@ app = FastAPI()
 
 
 
-@app.get("/test")
-async def test():
-    return {"status": "ok"}
+@app.get("/")
+async def hello_message():
+    return {"test": "hello"}
 
 
 @app.post("/rag/query")

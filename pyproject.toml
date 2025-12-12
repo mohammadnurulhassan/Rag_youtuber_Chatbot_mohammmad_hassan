@@ -1,11 +1,12 @@
 [project]
 name = "rag-youtuber-chatbot-mohammmad-hassan"
 version = "0.1.0"
-description = "RAG chatbot for Kokchun-style data engineering YouTube lectures"
+description = "RAG chatbot for  data engineering YouTube lectures"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi",
+    "ipykernel",
     "uvicorn[standard]",
     "streamlit",
     "lancedb",
@@ -15,4 +16,5 @@ dependencies = [
     "requests",
     "pandas>=2.3.3",
     "pypdf>=6.4.1",
+    "azure-functions>=1.24.0",
 ]
