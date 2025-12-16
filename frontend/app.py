@@ -153,14 +153,14 @@ def layout():
             bot_text = (
                 f"{answer}\n\n"
                 f" Source: **{source_file}**"
-                f"`{source_path}`",
-                st.image(ASSETS_PATH/f"{source_file}.png", caption="Related image", use_container_width=True)
+                
+                
             )
 
             
-
+            
             st.session_state["history"].append(("bot", bot_text))
-
+            st.image(ASSETS_PATH/f"{source_file}.png", caption="Related image", use_container_width=True) 
 
     # ---------- CHAT HISTORY ----------
     st.markdown("## 🧠 Conversation")
